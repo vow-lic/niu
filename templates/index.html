@@ -1,0 +1,37 @@
+<!DOCTYPE HTML>
+
+<html>
+	<head>
+		<title>牛品种</title>
+		<meta charset="utf-8" />
+        <!--  <style>
+        
+    </style>
+		<link rel="stylesheet" href="assets/css/main.css" /> -->
+		
+	</head>
+   <body>
+   <div>
+     <hi>牛品种<h1>
+   </div>
+      <form method="POST">
+    <!--  {{form.hidden_tag()}} -->
+      {{form.name.lable}}{{form.name()}}
+      {{form.submit()}}
+      </form>
+      {% if name %}
+      <table> <thead> <tr> <td>项目</td>
+                           <td>信息</td> </tr> </thead>
+              <tbody> <tr> <td>品种名称</td>
+                           <td>{{ name }}</td> </tr> 
+                      <tr> <td>产地</td>
+                           <td>{{ habitat }}</td> </tr>
+                      <tr> <td>血缘</td>
+                           <td>{{ bloodline }}</td> </tr> 
+                      <tr> <td>性状</td>
+                           <td>{{ traits }}</td> </tr> </tbody>
+     </table>
+     {% else %}{% endif %}
+                               
+   </body>
+</html>
