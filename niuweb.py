@@ -11,46 +11,76 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField
 from wtforms.validators import Required
 import sqlite3
+from flask_bootstrap import Bootstrap
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'apmfeuasdfghjklzxcvbnm'
 app.config['DATABASE'] = os.path.join(app.root_path, 'niupinzhong.db')
+bootstrap = Bootstrap(app)
 
 class SeachForm(FlaskForm):
-    name = StringField(u'xxx', validators=[Required()])
+    name = StringField(u'请输入您要查询的品种', validators=[Required()])
     submit = SubmitField(u'提交')
 
+class AddForm(FlaskForm):
+    name = StringField(u'品种名称',validators=[Required()])
+    habitat = StringField(u'产地',validators=[Required()])
+    bloodline = StringField(u'血缘',validators=[Required()])
+    traits = StringField(u'性状',validators=[Required()])
+    submit = SubmitField(u'提交')
+    
 @app.route('/',methods=['POST','GET'])
 def index(): 
-    name = None
     HABITAT = None
     BLOODLINE = None
     TRAITS = None
     form = SeachForm()
-    print 'form : {}'.format(form)
     if request.method == 'POST':
-        print '1\n\n'
-        name = form.name.data
-        print name
+        #name = form.name.data
+        #print name
         conn = sqlite3.connect(app.config['DATABASE'])
         cursor = conn.cursor()
         values = cursor.execute('SELECT * FROM jianjiea WHERE NAME=?',[request.form['name']])
-        for row in values:
-            print row[:]
-            NAME = row[1]
-            HABITAT = row[2]
-            BLOODLINE = row[3]
-            TRAITS = row[4]
-            cursor.close()
-            conn.close()
-#        form.name.data = ''
-
+        row = values.fetchall()
+        if len(row) > 0:
+            NAME = row[0][0]
+            HABITAT = row[0][1]
+            BLOODLINE = row[0][2]
+            TRAITS = row[0][3]
             return render_template('index.html',form=form,name=NAME,habitat=HABITAT,\
                            bloodline=BLOODLINE,traits=TRAITS)
+        else:
+            return render_template('index.html',data=None,form=form)
+        cursor.close()
+        conn.close()
+#        form.name.data = ''   
     else:
-        print '2\n\n'
-        
         return render_template('index.html',form=form)
+
+@app.route('/add',methods=['POST','GET'])
+def add():
+    print 'add work'
+    form = AddForm()
+    if request.method == 'POST':
+        name = request.form['name']
+        habitat = request.form['habitat']
+        bloodline = request.form['bloodline']
+        traits = request.form['traits']
+        print name,habitat,bloodline,traits
+        conn = sqlite3.connect(app.config['DATABASE'])
+        cursor = conn.cursor()
+        values = cursor.execute('SELECT * FROM jianjiea WHERE NAME=?',[name])
+        row = values.fetchall()
+        if len(row) > 0:
+            print 'delete old data'
+            cursor.execute('DELETE FROM jianjiea WHERE NAME=?',[name])
+        print 'write new data'
+        cursor.execute('INSERT INTO jianjiea(name,habitat,bloodline,traits) VALUES (?,?,?,?)',\
+               [name,habitat,bloodline,traits])
+        conn.commit()
+    return render_template('add.html',form=form)
+    print 'add over'
+
     
 if __name__ == '__main__':
     app.run(debug=True)

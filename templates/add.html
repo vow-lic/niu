@@ -2,20 +2,23 @@
 {% block title %}牛品种{% endblock %}
 
 {% block content %}
-   <div calss="container">
-     <h2>牛品种查询</h2>
+   <div>
+     <h1>牛品种</h1>
    </div>
-   <div class="container"><div class="row"><div class="col-xs-10 col-md-6>
-       <form method="POST" class="form-horizontal" role="form">
+   <div class="container">
+      <form method="POST" class="form-horizontal" role="form">
         <div class="form-group">
         {{form.hidden_tag()}}
-        <p>{{form.name.lable}}{{form.name(placeholder='请输入您要搜索的品种')}}</P>
-        <p>{{form.submit()}}</p>
+          <p>{{form.name.lable}}{{form.name(placeholder='品种名称')}}</p>
+          <p>{{form.habitat.lable}}{{form.habitat(placeholder='产地')}}</p>
+          <p>{{form.bloodline.lable}}{{form.bloodline(placeholder='血缘')}}</p>
+          <p>{{form.traits.lable}}{{form.traits(placeholder='性状')}}</p>
+          <p>{{form.submit()}}</p>
         </div>
       </form>
-    </div></div></div>
-      {% if data == None %}</h2>抱歉，您所查询的品种未被收录</h2> {% elif name %}
-     
+    </div>
+    
+      {% if name %}
       <table> <thead> <tr> <td>项目</td>
                            <td>信息</td> </tr> </thead>
               <tbody> <tr> <td>品种名称</td>
@@ -28,6 +31,5 @@
                            <td>{{ traits }}</td> </tr> </tbody>
      </table>
      {% else %}{% endif %}
-                               
+ 
 {% endblock %}
-
