@@ -40,8 +40,9 @@ def index():
         #print name
         conn = sqlite3.connect(app.config['DATABASE'])
         cursor = conn.cursor()
-        values = cursor.execute('SELECT * FROM jianjiea WHERE NAME=?',[request.form['name']])
+        values = cursor.execute('SELECT * FROM jianjie WHERE NAME=?',[request.form['name']])
         row = values.fetchall()
+        
         if len(row) > 0:
             NAME = row[0][0]
             HABITAT = row[0][1]
@@ -69,13 +70,13 @@ def add():
         print name,habitat,bloodline,traits
         conn = sqlite3.connect(app.config['DATABASE'])
         cursor = conn.cursor()
-        values = cursor.execute('SELECT * FROM jianjiea WHERE NAME=?',[name])
+        values = cursor.execute('SELECT * FROM jianjie WHERE NAME=?',[name])
         row = values.fetchall()
         if len(row) > 0:
             print 'delete old data'
-            cursor.execute('DELETE FROM jianjiea WHERE NAME=?',[name])
+            cursor.execute('DELETE FROM jianjie WHERE NAME=?',[name])
         print 'write new data'
-        cursor.execute('INSERT INTO jianjiea(name,habitat,bloodline,traits) VALUES (?,?,?,?)',\
+        cursor.execute('INSERT INTO jianjie (name,habitat,bloodline,traits) VALUES (?,?,?,?)',\
                [name,habitat,bloodline,traits])
         conn.commit()
     return render_template('add.html',form=form)

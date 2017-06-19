@@ -33,10 +33,18 @@ else:
 row = values.fetchall()
 print row'''
 
-cursor.execute('INSERT INTO jianjiea(name,habitat,bloodline,traits) VALUES (?,?,?,?)',\
-               [name,habitat,bloodline,traits])
+cursor.execute('CREATE TABLE "jianjie" \
+               ("NAME" NVARCHAR(5) NOT NULL ,\
+               "HABITAT" NVARCHAR(20),\
+               "BLOODLINE" NVARCHAR(40),\
+               "TRAITS" NVARCHAR(90),\
+               "IMG" NVARCHAR(20),\
+               "ID" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL UNIQUE);')
+#cursor.execute('INSERT INTO jianjiea(name,habitat,bloodline,traits) VALUES (?,?,?,?)',\
+ #              [name,habitat,bloodline,traits])
+
 conn.commit()
-values = cursor.execute('SELECT * FROM jianjiea WHERE NAME=?',[name])
+#values = cursor.execute('SELECT * FROM jianjiea WHERE NAME=?',[name])
 print 'values git'
 if values :
     print 'values take something'
