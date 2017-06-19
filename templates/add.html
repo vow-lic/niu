@@ -6,13 +6,14 @@
      <h1>牛品种</h1>
    </div>
    <div class="container">
-      <form method="POST" class="form-horizontal" role="form">
+      <form method="POST" enctype=multipart/form-data class="form-horizontal" role="form">
         <div class="form-group">
         {{form.hidden_tag()}}
           <p>{{form.name.lable}}{{form.name(placeholder='品种名称')}}</p>
           <p>{{form.habitat.lable}}{{form.habitat(placeholder='产地')}}</p>
           <p>{{form.bloodline.lable}}{{form.bloodline(placeholder='血缘')}}</p>
           <p>{{form.traits.lable}}{{form.traits(placeholder='性状')}}</p>
+          <p><input type=file name=file></P>
           <p>{{form.submit()}}</p>
         </div>
       </form>

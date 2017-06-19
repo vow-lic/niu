@@ -29,7 +29,9 @@
                       <tr> <td>血缘</td>
                            <td>{{ bloodline }}</td> </tr> 
                       <tr> <td>性状</td>
-                           <td>{{ traits }}</td> </tr> </tbody>
+                           <td>{{ traits }}</td> </tr> 
+                      <tr> <td>图片</td>
+                           <td>{% if imgsite == None %}未收录品种图片{% else %}<img class="img-reaponsive" src={{ imgsite }} alt="品种图片" onload='if (this.width>280 || this.height>452) if (this.width/this.height>280/452) this.width=280; else this.height=452;'/></td> </tr> </tbody>{% endif %}
   </table>
   </div>
   {% else %}{% endif %}
