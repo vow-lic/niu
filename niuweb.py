@@ -14,6 +14,7 @@ from wtforms import StringField, SubmitField
 from wtforms.validators import Required
 from werkzeug.utils import secure_filename
 from flask_bootstrap import Bootstrap
+from flask.ext.script import Manager
 
 reload(sys)  
 sys.setdefaultencoding('utf8') 
@@ -24,6 +25,7 @@ app.config['DATABASE'] = os.path.join(app.root_path, 'niupinzhong.db')
 app.config['UPLOAD_FOLDER'] = os.path.join(app.root_path,'static')
 ALLOWED_EXTENSIONS = set(['jpg','png'])
 bootstrap = Bootstrap(app)
+manager = Manager(app)
 
 class SeachForm(FlaskForm):
     name = StringField(u'请输入您要查询的品种', validators=[Required()])
@@ -109,4 +111,4 @@ def add():
 
     
 if __name__ == '__main__':
-    app.run(debug=True)
+    manager.run()
