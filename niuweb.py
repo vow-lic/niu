@@ -8,13 +8,13 @@ Created on Fri Jun  9 12:52:45 2017
 import os
 import sys
 import sqlite3
-from flask import Flask,render_template,request,flash
+from flask import Flask,render_template,request
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField
 from wtforms.validators import Required
 from werkzeug.utils import secure_filename
 from flask_bootstrap import Bootstrap
-from flask.ext.script import Manager
+from flask_script import Manager
 
 reload(sys)  
 sys.setdefaultencoding('utf8') 
@@ -55,8 +55,7 @@ def index():
         conn = sqlite3.connect(app.config['DATABASE'])
         cursor = conn.cursor()
         values = cursor.execute('SELECT * FROM jianjie WHERE NAME=?',[request.form['name']])
-        row = values.fetchall()
-        
+        row = values.fetchall()        
         if len(row) > 0:
             NAME = row[0][0]
             HABITAT = row[0][1]
@@ -68,6 +67,7 @@ def index():
             return render_template('index.html',form=form,name=NAME,habitat=HABITAT,\
                            bloodline=BLOODLINE,traits=TRAITS,imgsite=IMGSITE)
         else:
+  #          flash(u'您所查询的数据不存在')
             return render_template('index.html',data=None,form=form)
         cursor.close()
         conn.close()
@@ -77,17 +77,20 @@ def index():
 
 @app.route('/add',methods=['POST','GET'])
 def add():
-    print 'add work'
+    print 'add start'
     form = AddForm()
     if request.method == 'POST':
         name = request.form['name']
+        form.name.data = ''
         habitat = request.form['habitat']
+        form.habitat.data = ''
         bloodline = request.form['bloodline']
+        form.bloodline.data = ''
         traits = request.form['traits']
+        form.traits.data = ''
         if 'file' in request.files:
             file = request.files['file']
             if file.filename == '':
-                flash('No selected file')
                 print 'No selected file'
             else :
                 if file and allowed_file(file.filename):
@@ -109,6 +112,38 @@ def add():
     return render_template('add.html',form=form)
     print 'add over'
 
+@app.route('/delete',methods=['POST','GET'])
+def delete():
+    form = SeachForm()
+    print 'delete start'
+    if request.method == 'POST':
+        #name = form.name.data
+        #print name
+        conn = sqlite3.connect(app.config['DATABASE'])
+        cursor = conn.cursor()
+        values = cursor.execute('SELECT * FROM jianjie WHERE NAME=?',[request.form['name']])
+        row = values.fetchall()        
+        if len(row) > 0:
+            print 'delete begin'
+            cursor.execute('DELETE FROM jianjie WHERE NAME=?',[row[0][0]])
+            conn.commit()
+            print 'delete over'
+            NAME = row[0][0]
+            HABITAT = row[0][1]
+            BLOODLINE = row[0][2]
+            TRAITS = row[0][3]
+            if row[0][4]:
+                IMG = row[0][4]
+                IMGSITE = os.path.join('static',IMG)
+            return render_template('index.html',form=form,name=NAME,habitat=HABITAT,\
+                           bloodline=BLOODLINE,traits=TRAITS,imgsite=IMGSITE)
+        else:
+            return render_template('index.html',data=None,form=form)
+        cursor.close()
+        conn.close()
+#        form.name.data = ''   
+    else:
+        return render_template('index.html',form=form)
     
 if __name__ == '__main__':
     manager.run()

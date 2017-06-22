@@ -17,7 +17,7 @@
       </form>
       </div>
     </div></div>
-      {% if data == None %}</h2>抱歉，您所查询的品种未被收录</h2> {% elif name %}
+      {% if data == None %} <div class="text-muted"></h2>抱歉，您所查询的品种未被收录</h2></div>{% elif name %}
   <div class="table-bordered">
     <table>
               <thead> <tr> <td><strong>项目</strong></td>
@@ -31,13 +31,19 @@
                       <tr> <td>性状</td>
                            <td>{{ traits }}</td> </tr> 
                       <tr> <td>图片</td>
-                           <td>{% if imgsite == None %}未收录品种图片{% else %}<img class="img-reaponsive" src={{ imgsite }} alt="品种图片" onload='if (this.width>280 || this.height>452) if (this.width/this.height>280/452) this.width=280; else this.height=452;'/></td> </tr> </tbody>{% endif %}
+                           <td>{% if imgsite == None %}<div class="text-muted">未收录品种图片</div>{% else %}<img class="img-reaponsive" src={{ imgsite }} alt="品种图片" onload='if (this.width>280 || this.height>452) if (this.width/this.height>280/452) this.width=280; else this.height=452;'/></td> </tr> </tbody>{% endif %}
   </table>
   </div>
   {% else %}{% endif %}
   </div>
-</div>
+</div>                              
 
-                              
+    {% for message in get_flashed_messages() %}
+    <div class="alter alter-warning " >
+        <a href="#" class="close" data-dismiss="alert">&times:</a>
+        {{ message }}
+        </div>
+        {% endfor %}
 {% endblock %}
+
 
