@@ -120,6 +120,11 @@ def add():
 
 @app.route('/delete',methods=['POST','GET'])
 def delete():
+    HABITAT = None
+    BLOODLINE = None
+    TRAITS = None
+    IMGSITE = None
+    SOURCE = None
     form = SeachForm()
     print 'delete start'
     if request.method == 'POST':
