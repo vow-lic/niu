@@ -21,10 +21,10 @@ name = 'jiulong'
 habitat = 'ganzi'
 bloodline = 'yak'
 traits = None
-
+img=None
 conn = sqlite3.connect(app.config['DATABASE'])
 cursor = conn.cursor()
-'''values = cursor.execute('SELECT * FROM jianjiea WHERE NAME=?',[name])
+'''values = cursor.execute('SELECT * FROM jianjie WHERE NAME=?',[name])
 print 'values git'
 if values :
     print 'values take something'
@@ -39,19 +39,13 @@ cursor.execute('CREATE TABLE "jianjie" \
                "BLOODLINE" NVARCHAR(40),\
                "TRAITS" NVARCHAR(90),\
                "IMG" NVARCHAR(20),\
+               "SOURCE" NVARCHAR(90),\
                "ID" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL UNIQUE);')
-#cursor.execute('INSERT INTO jianjiea(name,habitat,bloodline,traits) VALUES (?,?,?,?)',\
- #              [name,habitat,bloodline,traits])
+'''cursor.execute('INSERT INTO jianjie(name,habitat,bloodline,traits,img) VALUES (?,?,?,?,?)',\
+               [name,habitat,bloodline,traits,img])'''
 
 conn.commit()
-#values = cursor.execute('SELECT * FROM jianjiea WHERE NAME=?',[name])
-print 'values git'
-if values :
-    print 'values take something'
-else:
-    print 'values is empty'
-row = values.fetchall()
-print row
+
 
 cursor.close()
 conn.close()

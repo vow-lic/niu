@@ -2,10 +2,11 @@
 {% block title %}牛品种{% endblock %}
 
 {% block content %}
-   <div>
-     <h1>牛品种</h1>
-   </div>
-   <div class="container">
+ <div class="panel panel-default">
+  <div class="panel-heading">牛品种数据录入</div>
+  <div class="panel-body">
+     <div class="container"><div class="row">
+       <div class="col-xs-6 col-md-offset-3">
       <form method="POST" enctype=multipart/form-data class="form-horizontal" role="form">
         <div class="form-group">
         {{form.hidden_tag()}}
@@ -14,10 +15,11 @@
           <p>{{form.bloodline.lable}}{{form.bloodline(placeholder='血缘')}}</p>
           <p>{{form.traits.lable}}{{form.traits(placeholder='性状')}}</p>
           <p><input type=file name=file></P>
+          <p>{{form.source.lable}}{{form.source(placeholder='来源于网络')}}</p>
           <p>{{form.submit()}}</p>
         </div>
       </form>
-    </div>
+    </div></div></div>
     
      
  

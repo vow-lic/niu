@@ -4,20 +4,20 @@
 {% block content %}
  
 <div class="panel panel-default">
-  <div class="panel-heading">牛品种查询</div>
+  <div class="panel-heading">牛品种删除</div>
   <div class="panel-body">
      <div class="container"><div class="row">
        <div class="col-xs-6 col-md-offset-3">
        <form method="POST" class="form-horizontal" role="form">
         <div class="form-group">
         {{form.hidden_tag()}}
-        <p>{{form.name.lable}}{{form.name(placeholder='请输入您要搜索的品种')}}</P>
+        <p>{{form.name.lable}}{{form.name(placeholder='请输入您要删除的品种')}}</P>
         <p>{{form.submit()}}</p>
         </div>
       </form>
       </div>
     </div></div>
-      {% if data == None %} <div class="text-muted"></h2>抱歉，您所查询的品种未被收录</h2></div>{% elif name %}
+      {% if data == None %} <div class="text-muted"></h2>抱歉，您所删除的品种未被收录</h2></div>{% elif name %}
   <div class="table-bordered">
     <table>
               <thead> <tr> <td><strong>项目</strong></td>
@@ -48,5 +48,6 @@
         </div>
         {% endfor %}
 {% endblock %}
+
 
 
