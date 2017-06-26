@@ -20,6 +20,7 @@ reload(sys)
 sys.setdefaultencoding('utf8') 
 
 app = Flask(__name__)
+app.config['WEBIMGSITE'] = os.path.join('http://127.0.0.1:5000','static')
 app.config['SECRET_KEY'] = 'apmfeuasdfghjklzxcvbnm'
 app.config['DATABASE'] = os.path.join(app.root_path, 'niupinzhong.db')
 app.config['UPLOAD_FOLDER'] = os.path.join(app.root_path,'static')
@@ -45,19 +46,22 @@ def allowed_file(filename):
 
 @app.route('/',methods=['POST','GET'])
 def index(): 
+    NAME = None
     HABITAT = None
     BLOODLINE = None
     TRAITS = None
     IMGSITE = None
     SOURCE = None
     form = SeachForm()
+    conn = sqlite3.connect(app.config['DATABASE'])
+    cursor = conn.cursor()
+    names = cursor.execute('SELECT NAME,ID FROM jianjie')
+    NAMES = names.fetchall()
     if request.method == 'POST':
         #name = form.name.data
-        #print name
-        conn = sqlite3.connect(app.config['DATABASE'])
-        cursor = conn.cursor()
+        #print name      
         values = cursor.execute('SELECT * FROM jianjie WHERE NAME=?',[request.form['name']])
-        row = values.fetchall()        
+        row = values.fetchall()       
         if len(row) > 0:
             NAME = row[0][0]
             HABITAT = row[0][1]
@@ -65,19 +69,109 @@ def index():
             TRAITS = row[0][3]
             if row[0][4]:
                 IMG = row[0][4]
-                IMGSITE = os.path.join('static',IMG)
+                IMGSITE = os.path.join(app.config['WEBIMGSITE'],IMG)
             SOURCE = row[0][5]
             return render_template('index.html',form=form,name=NAME,habitat=HABITAT,\
+                           bloodline=BLOODLINE,traits=TRAITS,imgsite=IMGSITE,source=SOURCE,names=NAMES)
+        else:
+#            flash(u'您所查询的数据不存在')
+            return render_template('index.html',data=None,form=form,names=NAMES)
+    else:
+        return render_template('index.html',form=form,names=NAMES)
+    cursor.close()
+    conn.close()
+
+@app.route('/auto/<id>',methods=['POST','GET'])
+def auto(id):
+    NAME = None
+    HABITAT = None
+    BLOODLINE = None
+    TRAITS = None
+    IMGSITE = None
+    SOURCE = None
+    form = SeachForm()
+    conn = sqlite3.connect(app.config['DATABASE'])
+    cursor = conn.cursor()
+    names = cursor.execute('SELECT NAME,ID FROM jianjie')
+    NAMES = names.fetchall()
+    if request.method == 'POST':
+        #name = form.name.data
+        #print name      
+        values = cursor.execute('SELECT * FROM jianjie WHERE NAME=?',[request.form['name']])
+        row = values.fetchall()       
+        if len(row) > 0:
+            NAME = row[0][0]
+            HABITAT = row[0][1]
+            BLOODLINE = row[0][2]
+            TRAITS = row[0][3]
+            if row[0][4]:
+                IMG = row[0][4]
+                IMGSITE = os.path.join(app.config['WEBIMGSITE'],IMG)
+            SOURCE = row[0][5]
+            return render_template('index.html',form=form,name=NAME,habitat=HABITAT,\
+                           bloodline=BLOODLINE,traits=TRAITS,imgsite=IMGSITE,source=SOURCE,names=NAMES)
+        else:
+#            flash(u'您所查询的数据不存在')
+            return render_template('index.html',data=None,form=form,names=NAMES)
+    else:
+        values = cursor.execute('SELECT * FROM jianjie WHERE ID=?',[id])
+        row = values.fetchall()       
+        if len(row) > 0:
+            NAME = row[0][0]
+            HABITAT = row[0][1]
+            BLOODLINE = row[0][2]
+            TRAITS = row[0][3]
+            if row[0][4]:
+                IMG = row[0][4]
+                IMGSITE = os.path.join(app.config['WEBIMGSITE'],IMG)
+            SOURCE = row[0][5]
+            return render_template('index.html',form=form,name=NAME,habitat=HABITAT,\
+                           bloodline=BLOODLINE,traits=TRAITS,imgsite=IMGSITE,source=SOURCE,names=NAMES)
+        else:
+#            flash(u'您所查询的数据不存在')
+            return render_template('index.html',data=None,form=form,names=NAMES)
+    cursor.close()
+    conn.close()
+
+@app.route('/delete',methods=['POST','GET'])
+def delete():
+    HABITAT = None
+    BLOODLINE = None
+    TRAITS = None
+    IMGSITE = None
+    SOURCE = None
+    form = SeachForm()
+    print 'delete start'
+    if request.method == 'POST':
+        conn = sqlite3.connect(app.config['DATABASE'])
+        cursor = conn.cursor()
+        values = cursor.execute('SELECT * FROM jianjie WHERE NAME=?',[request.form['name']])
+        row = values.fetchall()        
+        if len(row) > 0:            
+            NAME = row[0][0]
+            HABITAT = row[0][1]
+            BLOODLINE = row[0][2]
+            TRAITS = row[0][3]
+            if row[0][4]:
+                IMG = row[0][4]
+                IMGSITE = os.path.join(app.config['WEBIMGSITE'],IMG)
+            SOURCE = row[0][5]
+            print 'delete begin'
+            cursor.execute('DELETE FROM jianjie WHERE NAME=?',[NAME])
+            conn.commit()
+            if os.path.exists(os.path.join(app.root_path, 'static',IMG)):
+                os.remove(os.path.join('static',IMG))
+            print 'delete over'
+            return render_template('delete.html',form=form,name=NAME,habitat=HABITAT,\
                            bloodline=BLOODLINE,traits=TRAITS,imgsite=IMGSITE,source=SOURCE)
         else:
-  #          flash(u'您所查询的数据不存在')
-            return render_template('index.html',data=None,form=form)
+            return render_template('delete.html',data=None,form=form)
         cursor.close()
         conn.close()
 #        form.name.data = ''   
     else:
-        return render_template('index.html',form=form)
-
+        return render_template('delete.html',form=form)
+    
 @app.route('/add',methods=['POST','GET'])
 def add():
     print 'add start'
@@ -117,43 +211,6 @@ def add():
         conn.commit()
     return render_template('add.html',form=form)
     print 'add over'
-
-@app.route('/delete',methods=['POST','GET'])
-def delete():
-    HABITAT = None
-    BLOODLINE = None
-    TRAITS = None
-    IMGSITE = None
-    SOURCE = None
-    form = SeachForm()
-    print 'delete start'
-    if request.method == 'POST':
-        conn = sqlite3.connect(app.config['DATABASE'])
-        cursor = conn.cursor()
-        values = cursor.execute('SELECT * FROM jianjie WHERE NAME=?',[request.form['name']])
-        row = values.fetchall()        
-        if len(row) > 0:
-            print 'delete begin'
-            cursor.execute('DELETE FROM jianjie WHERE NAME=?',[row[0][0]])
-            conn.commit()
-            print 'delete over'
-            NAME = row[0][0]
-            HABITAT = row[0][1]
-            BLOODLINE = row[0][2]
-            TRAITS = row[0][3]
-            if row[0][4]:
-                IMG = row[0][4]
-                IMGSITE = os.path.join('static',IMG)
-            SOURCE = row[0][5]
-            return render_template('delete.html',form=form,name=NAME,habitat=HABITAT,\
-                           bloodline=BLOODLINE,traits=TRAITS,imgsite=IMGSITE,source=SOURCE)
-        else:
-            return render_template('delete.html',data=None,form=form)
-        cursor.close()
-        conn.close()
-#        form.name.data = ''   
-    else:
-        return render_template('delete.html',form=form)
-    
+   
 if __name__ == '__main__':
     manager.run()
