@@ -1,0 +1,80 @@
+{% extends "bootstrap/base.html" %}
+{% block title %}牛品种{% endblock %}
+
+{% block content %}
+ 
+<div class="panel panel-default">
+  <div class="panel-heading">牛品种查询</div>
+  <div class="panel-body">
+     <div class="container"><div class="row">
+       <div class="col-xs-6 col-md-offset-3">
+       <form method="POST" class="form-horizontal" role="form">
+        <div class="form-group">
+        {{form.hidden_tag()}}
+        <p>{{form.name.lable}}{{form.name(placeholder='请输入您要搜索的品种')}}</P>
+        <p>{{form.submit()}}</p>
+        </div>
+      </form>
+      </div>
+    </div></div>
+      {% if data == None %} <div class="text-muted"></h2>抱歉，您所查询的品种未被收录</h2></div>{% elif data %}
+<main class=packages-list-container id=all-packages>
+  <div class=container>
+    <div class="list-group packages" id=common-packages> 
+    {% for line in data %}
+        {% if line[2] %}
+          {% if line[1] == 1 %}
+           <div class="package list-group-item">
+             <div class=row>
+               <div class=col-md-3>
+               <h4 class=package-name>{{ line[0] }}</h4>
+               </div>
+               <div class="col-md-9 hidden-xs">
+                 <div class=package-description><img class="img-reaponsive" src="{{ line[2] }}" alt={{ line[0] }} onload='if (this.width>280 || this.height>452) if (this.width/this.height>280/452) this.width=280; else this.height=452;'/></div>
+               </div>
+             </div>
+           </div> 
+         {% else %}
+          <div class="package list-group-item">
+            <div class=row>
+              <div class=col-md-3>
+              <h4 class=package-name>{{ line[0] }}</h4>
+              </div>
+              <div class="col-md-9 hidden-xs">
+              {% for row in line[2].split(' ') %}
+              <p>{{ row }}</p>
+              {% endfor %}
+              </div>
+            </div>
+          </div>
+        {% endif %}{% else %}{% endif %}{% endfor %}
+      <div class="package list-group-item">
+    <p><div class="text-muted text-right">以上信息来源于网络</div></p>
+    </div>
+    <div class="list-group packages" id=search-results style="display: none">
+    </div>
+  </div></div>
+</main>
+  {% else %}{% endif %}
+  </div>
+</div>                              
+<div class="page-header">
+  <h4>
+    <ul class="nav nav-pills" role="tablist">
+   <li role="presentation"><a href="#"><span class="label" style="color:#ABABAB">推荐查询</span></a></li>
+     {% for name in names %}
+     <li role="presentation"><a href="/auto/{{ name[1] }}"><span class="label label-default">{{ name[0] }}</span></a></li>
+     {% endfor %}</ul></h4></div>
+    
+
+    {% for message in get_flashed_messages() %}
+    <div class="alter alter-warning " >
+        <a href="#" class="close" data-dismiss="alert">&times:</a>
+        {{ message }}
+        </div>
+        {% endfor %}
+        
+
+{% endblock %}
+
+

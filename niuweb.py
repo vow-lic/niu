@@ -211,6 +211,38 @@ def add():
         conn.commit()
     return render_template('add.html',form=form)
     print 'add over'
-   
+
+@app.route('/test',methods=['POST','GET'])
+def test(): 
+    DATA = []
+    Map = [['ID',2],[u'品种名称',0],[u'品种图片',1],[u'产地与分布',0],[u'品种形成',0],[u'体型外貌',0],[u'生长发育',0],[u'生产性能',0],[u'繁殖性能',0],[u'杂交效果',0],['适应性能',0],[u'评价与展望',0]]
+    form = SeachForm()
+    conn = sqlite3.connect(os.path.join(app.root_path, 'Niupinz.db'))
+    cursor = conn.cursor()
+    names = cursor.execute('SELECT NAME,ID FROM jianjie')
+    NAMES = names.fetchall()
+    if request.method == 'POST':
+        print 'post'
+        values = cursor.execute('SELECT * FROM jianjie WHERE NAME=?',[request.form['name']])
+        row = values.fetchall()[0]
+        DATA = Map
+        print len(row),len(DATA)
+        if len(row) > 0:            
+            for i in range(len(Map)):  
+                if DATA[i][1] == 1:
+                    DATA[i].append(os.path.join(app.config['WEBIMGSITE'],row[i])) 
+                elif DATA[i][1] == 0:
+                    DATA[i].append(row[i])
+                else:
+                    DATA[i].append('')
+            return render_template('test.html',form=form,data=DATA,names=NAMES)
+        else:
+#            flash(u'您所查询的数据不存在')
+            return render_template('test.html',data=None,form=form,names=NAMES)
+    else:
+        return render_template('test.html',form=form,names=NAMES)
+    cursor.close()
+    conn.close()
+
 if __name__ == '__main__':
     manager.run()

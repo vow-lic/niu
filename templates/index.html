@@ -18,6 +18,134 @@
       </div>
     </div></div>
       {% if data == None %} <div class="text-muted"></h2>抱歉，您所查询的品种未被收录</h2></div>{% elif name %}
+<main class=packages-list-container id=all-packages>
+  <div class=container>
+    <div class="list-group packages" id=common-packages> 
+    <div class="package list-group-item">
+      <div class=row>
+        <div class=col-md-3>
+        <h4 class=package-name>品种名称</h4>
+        </div>
+        <div class="col-md-9 hidden-xs">
+        <div class=package-description>{{ name }}</div>
+        </div>
+      </div>
+    </div> 
+    <div class="package list-group-item">
+      <div class=row>
+        <div class=col-md-3>
+        <h4 class=package-name>品种图片</h4>
+        </div>
+        <div class="col-md-9 hidden-xs">
+        <div class=package-description>{% if imgsite == None %}<div class="text-muted">未收录品种图片</div>{% else %}<img class="img-reaponsive" src="{{ imgsite }}" alt="品种图片" onload='if (this.width>280 || this.height>452) if (this.width/this.height>280/452) this.width=280; else this.height=452;'/>{% endif %}</div>
+        </div>
+      </div>
+    </div> 
+    <div class="package list-group-item">
+      <div class=row>
+        <div class=col-md-3>
+        <h4 class=package-name>产地与分布</h4>
+        </div>
+        <div class="col-md-9 hidden-xs">
+        <p class=package-description>九龙牦牛主要产于四川省甘孜藏族自治州的九龙县及康定县南部的沙德区，中心产区位于九龙县境内九龙河西之大雪山东西两侧的斜卡和洪坝。邻近丸龙县的四川省凉山彝族自治州的木里藏族自治县、盐源县和冕宁县，以及雅安地区的石棉等县均有分布，横断高山区的其他地区及大、小凉山的高山地区也已引进伺牧。据1981年统计，共有牦牛3万余头。</p>
+        </div>
+      </div>      
+     </div>
+     <div class="package list-group-item">
+      <div class=row>
+        <div class=col-md-3>
+        <h4 class=package-name>品种形成</h4>
+        </div>
+        <div class="col-md-9 hidden-xs">
+        <p class=package-description>产区的牦牛饲牧业，早在公元前一、二世纪已很兴盛。现今康定、九龙以及雅砻江流域的雅江等地，是汉代“旄牛国”的所在地，盛产牦牛。《史记·货殖列传》记载：“巴蜀亦沃野……西近邛崃。筰马、旄牛”。其人称“氂牛种”（《后汉书·西羌传》）。《史记·西南夷列传》记述：“巴蜀民或窃出商贾，取其筰马、僰僮、氂牛，以此巴蜀殷富。”当时，现九龙牦牛产区的牦牛，即已大批驱入“内地”华夏出售，供祭祀作肉用。明李时珍《本草纲目·兽部》牦牛条也称：“牦牛出……西南徼外，……人多畜养之。”可见产区牦牛具有悠久的历史。</p>
+        <p class=package-description>产区位于青藏高原东南边缘横断山系北段，大雪山主峰贡嘎山（海拔7556米）之南，地域虽处北纬28°21′至29°21′，属于亚热带气候，但因高山峡谷、岭谷高差达三、四千米，而亚热带纬度性气候为垂直地带性所替代。牦牛分布在海拔3500米以上，全年无夏，无绝对无霜期，年平均气温2℃左右，年降水量900mm。林带以上多灌丛草场，海拔4500m以上多高山草甸草场。由于产区多灌丛草场，难以发展绵羊，牧民只能用牦牛毛、绒代替羊毛编织毛衣和“察尔瓦”（披衫）；产区境内有30余座马匹难以翻越的高山，需要体驱高大、健壮而有力的牦牛作运输工具。</p>
+        <p class=package-description>九龙牦牛是近130多年来对一小群牦牛（清道光年间的1850年左右，一场牛瘟大流行后幸存者）通过更多的人工选择、选配，加强犊幼牦牛的培育和在丰盛的饲草条件下继承繁衍而成的。</p>
+        <p class=package-description>产区藏族人民，在体型高大、生产性能好的公母牦牛后代中，挑选初生体重大、生长发育块、体型良好的公犊进行培育，实行两岁再选，三四岁定选及试配的方法，严格选留最优秀个体，正式供作配种，10岁以后竞配不力而自行淘汰。对母牦牛，凡4~5岁未见产犊，三四年空怀和母性不强、犊牛成活少的均予淘汰。</p>
+        <p class=package-description>每到配种季节，每一母牦牛群放入经选留的2~3头公牦牛，由公牦牛相互竞配发情母牦牛，由此而扩大选择的素材，达到选种、选配的目的。</p>
+        <p class=package-description>九龙牦牛有高大、多毛两个类系。高大类系产于大雪山西侧斜卡一带，体高、体重显著地高于其他地区的牦牛。多毛类系产于大雪山东侧洪坝一带，因独特的低温高湿气候而其毛绒产量特高，比一般牦牛高出5～10倍。</p>
+        </div>
+      </div> 
+     </div>
+     <div class="package list-group-item">
+      <div class=row>
+        <div class=col-md-3>
+        <h4 class=package-name>体型外貌</h4>
+        </div>
+        <div class="col-md-9 hidden-xs">
+        <p class=package-description>九龙牦牛额宽头较短，额毛丛生卷曲，长者遮及双眼。公、母均有角。公牦牛角间距大，角根粗大，角形开张雄伟。母牦牛角较细，不如公牦牛粗大、开张。颈粗短，其耆甲稍高有肩峰，尤以公牦牛为显。前胸发达开阔，助开张，胸极深，腹大不下垂。背腰平直，体躯呈矩形者多。后躯较短，发育不如前躯，尻欠宽而略斜。尾根着生较低，尾短，尾毛丛生帚状。四肢、体例、胸前裙毛着地。四肢相对较短，前肢直立，后肢弯曲有力。蹄小，跨叉紧，蹄质坚实。毛色整齐，全身黑褐色为多（ 3/4 ），少有黑白相间（ 1 ／ 4 ），无其他毛色。嘴巴周围灰白色。</p>
+        </div>
+      </div>
+     </div>
+     <div class="package list-group-item">
+      <div class=row>
+        <div class=col-md-3>
+        <h4 class=package-name>生长发育</h4>
+        </div>
+        <div class="col-md-9 hidden-xs">
+        <p class=package-description>No Data Now.</p>
+        </div>
+      </div>
+      </div>
+      <div class="package list-group-item">
+      <div class=row>
+        <div class=col-md-3>
+        <h4 class=package-name>生产性能</h4>
+        </div>
+        <div class="col-md-9 hidden-xs">
+        <p class=package-description>1.产肉性能：</p>
+        <p class=package-description>九龙县农牧局和四川省草原研究所进行的调查，该种牛经一般草地放牧，不补饲，10月份屠宰时达中等膘情。8头成年阉牦牛的平均屠宰率为54.6％（宰前重471.2kg）崐，净肉率46.1％（净肉重217.4kg），骨肉比1∶5.5，眼肌面积88.6平方厘米，公、崐母牦牛的屠宰率分别为57.6％和56.2％；净肉率分别为47.9％和48.5％；骨肉比分别为1∶4上和1∶6.0；眼叽面积分别为83.7和58.3平方厘米。</p>
+        <p class=package-description>2.泌乳性能：</p>
+        <p class=package-description>母牦牛自第二个泌乳月开始挤乳，一般每年挤乳5个月（6~10月），入冬（11月）停止挤乳。挤乳季节每天早上挤取一次。产乳量随牧草生长季节而变化，七八月牧草丰盛、质高，产乳量亦高，分别占全年产乳量的22％和25％左右。据对72头母牦崐牛测定，泌乳期产乳量平均为346.9±132kg。乳脂率因季节不同而异，6~7月份为5％~6.5％，8~10月份可达7.5％以上。母牦牛当年未孕，第二年春后叉可挤乳，其产乳量为头年的2/3左右，乳脂率提高30％左右。</p>
+        <p class=package-description>3.役用性能：</p>
+        <p class=package-description>九龙牦牛善爬陡坡，翻山越岭极度耐劳。驮牛（阉牦牛）在驮载物资到达目的地后，如无放牧地放牧采食，两三天不饮不食，仍可驮物上路。一般每头可驮载60~75kg，崐个别体壮的可驮重150kg，日行20~25km，连续驮运半月至20d。</p>
+        <p class=package-description>4．产毛性能：</p>
+        <p class=package-description>九龙牦牛每年五六月份剪毛一次。毛的产量因地区间的小气候不同，差别甚大。洪坝地区，终年雾罩，少见太阳，相对湿度高达80形以上，牦牛的被毛特别紧密厚实，其绒和毛的比例各半。据测定，19头公牦牛的产毛量平均为13.9±2.4kg；10 头阉牦牛为1.3±0.9吨；16头母牦牛为1.8±0.7kg。洪坝以外地区的九龙牦牛的绒毛之崐比是毛多而绒少。28头公牦牛平均产毛量为1.O±1.1kg；17头阉牦牛为1.3±0.6kg；崐72头母牦牛为0.4±0.3kg。</p>
+        <p class=package-description>公牦牛的产毛量随年龄的增大而增加；母牦牛3~5岁间产毛量最高；阉牦牛的年龄崐变化对产毛量的影响较小。</p>
+        </div>
+      </div>
+      </div>
+      <div class="package list-group-item">
+      <div class=row>
+        <div class=col-md-3>
+        <h4 class=package-name>繁殖性能</h4>
+        </div>
+        <div class="col-md-9 hidden-xs">
+        <p class=package-description>母牦牛一般2~3岁初配，6~12岁繁殖力最强，17~18岁丧失繁殖能力。2岁配种、3岁初产的母牦牛占初产母牦牛数的32.5%，3岁配种、4岁初产占总数的59.9%，5岁和6岁初产者分别为6.1%和1.5%。一般是三年两胎。据统计，2149头母牦牛，繁殖率为68.4%，繁殖成活率为61.8%。</p>
+        <p class=package-description>九龙牦牛季节性发情，每年7月份进入发情季节，8月份是配种旺季，10月份底结束发情配种。性周期为h~20d左右，发情持续期一般是8~24h，有10为~20另的母牦牛可出现孕后发情。妊娠期约为9个月，翌年3月份开始产犊，5月份为产犊旺季，6月底结束产犊。</p>
+        <p class=package-description>公牦牛4~5岁正式留种使用，6~10岁是配种最旺时期，使用年限一般为8年。一头壮龄公牦牛在一个配种季节可配30~50头母牦牛。</p>
+        </div>
+      </div> 
+      </div>
+      <div class="package list-group-item">
+      <div class=row>
+        <div class=col-md-3>
+        <h4 class=package-name>适应性能</h4>
+        </div>
+        <div class="col-md-9 hidden-xs">
+        <p class=package-description>九龙牦牛适应高山峡谷，气候湿润，以杂类草为主的高山灌丛草场。食性有异，喜食珠芽寥、人参果、马先蒿、香清和锡金岩黄耆等杂类草。近年来，九龙牦牛被引至凉山彝族自治州金阳等县高山草场，生长发育良好，繁殖正常，但被引至以禾本科和莎草科牧草为主的开阔草地，生长发育稍差。</p>
+        </div>
+      </div>
+      </div>
+      <div class="package list-group-item">
+      <div class=row>
+        <div class=col-md-3>
+        <h4 class=package-name>评价与展望</h4>
+        </div>
+        <div class="col-md-9 hidden-xs">
+        <p class=package-description>九龙牦牛是当地藏族人民经过一个多世纪采用较为严格的选择、自群繁育和“竞争性选配”，在横断山脉北段高山区的自然经济和丰盛的水草、较好的饲牧管理条件下，形成的一个具有共同来源、体型外貌较为一致、内部结构比较完整、遗传性较为稳定、体格硕大、肉用性能良好、毛绒产量较高的地方良种。1979年秋，根据九龙牦牛等级鉴定标准，对主要产区近7000头公、母牦牛进行了普查，初步鉴定出一等以上公牦牛4头（占26.6%），母牦牛285头（占30.8%），为开展本品种选育奠定了基础，目前，为克服有“见公就留”的现象，急需建立九龙牦牛繁殖场，进行有组织、有目标、有方向、有计划的系统选育，提高早熟性、日增重和加宽加大体型，进一步提高产肉及产绒毛性能，使其成为保持良好的放牧性能、肉用及绒肉兼用型牦牛的育成品种。</p>
+        </div>
+      </div>
+      </div>
+      <div class="package list-group-item">
+    <p>{% if source %}<div class="text-muted">以上信息来源于{{ source }}</div>{% else %}<div class="text-muted text-right">以上信息来源于网络</div>{% endif %}</p>
+    </div>
+    <div class="list-group packages" id=search-results style="display: none">
+    </div>
+  </div></div>
+</main>
+
+
+<!--
   <div class="table-bordered">
     <table>
               <thead> <tr> <td><strong>项目</strong></td>
@@ -37,6 +165,7 @@
                            </tbody> 
   </table>
   </div>
+-->
   {% else %}{% endif %}
   </div>
 </div>                              
